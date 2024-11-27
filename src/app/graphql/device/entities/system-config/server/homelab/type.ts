@@ -1,5 +1,4 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { Prop } from '@nestjs/mongoose';
 import { Blocky } from './blocky';
 import { Homeassistant } from './homeassistant';
 import { Mosquitto } from './mosquitto';

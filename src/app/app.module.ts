@@ -10,10 +10,7 @@ import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
 import { AuthModule } from './auth/auth.module';
 import { DeviceModule } from './graphql/device/device.module';
-import { UserModule } from './graphql/user/user.module';
-import { NixModule } from './rest/nix/nix.module';
 import { BullModule } from '@nestjs/bullmq';
-import { DeploymentModule } from './deployment/deployment.module';
 
 @Module({
   imports: [
@@ -37,9 +34,6 @@ import { DeploymentModule } from './deployment/deployment.module';
       }),
     }),
     DeviceModule,
-    UserModule,
-    NixModule,
-    DeploymentModule,
   ],
   providers: [AppService, AppResolver],
 })

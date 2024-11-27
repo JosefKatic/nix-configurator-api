@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Prop } from '@nestjs/mongoose';
 import { HomeBrave } from './brave';
 import { HomeChromium } from './chromium';
 import { HomeFirefox } from './firefox';

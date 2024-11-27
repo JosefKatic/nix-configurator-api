@@ -1,16 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Device, DeviceDocument } from './entities/device.entity';
-import { Model, Schema } from 'mongoose';
+import { Device } from './entities/device.entity';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom, map, of, switchMap } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { AxiosError } from 'axios';
-import {
-  UpdateHomeConfigInput,
-  UpdateSystemConfigInput,
-} from './dto/update-device.input';
 import { SystemConfigInput } from './entities/system-config';
 import { HomeConfigInput } from './entities/home-config';
 
@@ -19,7 +14,6 @@ export class DeviceService {
   private readonly logger = new Logger(DeviceService.name);
 
   constructor(
-    @InjectModel(Device.name) private deviceModel: Model<DeviceDocument>,
     @InjectQueue('device') private readonly deviceQueue: Queue,
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -150,10 +144,6 @@ export class DeviceService {
     } catch (error) {
       this.logger.error(error);
     }
-  }
-
-  remove(id: Schema.Types.ObjectId) {
-    return `This action removes a #${id} device`;
   }
 
   private convertToDotNotation(

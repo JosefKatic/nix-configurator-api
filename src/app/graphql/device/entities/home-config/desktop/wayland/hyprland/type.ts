@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Prop } from '@nestjs/mongoose';
 import { HomeHyprlandSettings } from './config';
 import { HomeHyprlandPlugins } from './plugins';
 

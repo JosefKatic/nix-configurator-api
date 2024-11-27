@@ -1,7 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Drive } from './drive';
 import { SwapFile } from './swapFile';
-import { Prop } from '@nestjs/mongoose';
 
 @ObjectType()
 export class Storage {

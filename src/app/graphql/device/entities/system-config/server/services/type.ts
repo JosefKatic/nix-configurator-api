@@ -1,5 +1,4 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Prop } from "@nestjs/mongoose";
 import { Fail2ban } from "./fail2ban";
 import { Headscale } from "./headscale";
 import { Web } from "./web";

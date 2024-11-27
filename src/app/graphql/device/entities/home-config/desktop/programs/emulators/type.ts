@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Prop } from '@nestjs/mongoose';
 import { HomeAlacritty } from './alacritty';
 import { HomeKitty } from './kitty';
 import { HomeWezterm } from './wezterm';

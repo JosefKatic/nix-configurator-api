@@ -1,5 +1,4 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { Prop } from '@nestjs/mongoose';
 import { GitDaemonInput } from './daemon';
 import { CGitInput } from './cgit';
 

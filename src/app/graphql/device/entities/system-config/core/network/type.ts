@@ -1,6 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { NetworkServices } from './networkServices';
-import { Prop } from '@nestjs/mongoose';
 
 @ObjectType()
 export class Network {

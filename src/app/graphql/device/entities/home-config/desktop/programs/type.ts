@@ -5,7 +5,6 @@ import { HomeEmulators } from './emulators';
 import { HomeProductivity } from './productivity';
 import { HomeGames } from './games';
 import { HomeMedia } from './media';
-import { Prop } from '@nestjs/mongoose';
 
 @ObjectType()
 export class HomePrograms {

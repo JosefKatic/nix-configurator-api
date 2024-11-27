@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Prop } from '@nestjs/mongoose';
 import { HomeKdeConnect } from './kdeconnect';
 import { HomeMako } from './mako';
 import { HomePolkitAgent } from './polkit-agent';
