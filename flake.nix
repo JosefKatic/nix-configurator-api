@@ -36,7 +36,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       });
     packages = eachSystem (system: {
-      api = dream2nix.lib.evalModules {
+      web-config-api = dream2nix.lib.evalModules {
         packageSets.nixpkgs = nixpkgs.legacyPackages.${system};
         modules = [
           # Import our actual package definiton as a dream2nix module from ./default.nix

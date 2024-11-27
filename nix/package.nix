@@ -11,7 +11,7 @@
   ];
 
   mkDerivation = {
-    src = ../../.;
+    src = ../.;
     nativeBuildInputs = [config.deps.nodejs_22];
 
     installPhase = ''

@@ -6,7 +6,9 @@ inputs: {
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
   inherit (lib) assertStringPath mkOption mkEnableOption types;
-  cfg = config.programs.hyprland;
+  cfg = config.services.web-config.server;
+  dataDir = "/var/lib/web-config-api";
+  runDir = "/run/web-config-api";
   package = inputs.self.packages.${system}.web-config-api;
 in {
   options.services.web-config.server = {
@@ -70,12 +72,20 @@ in {
     };
   };
   config = {
+    users.groups.web-config = {};
+    users.users.web-config = {
+      description = "web-config-api user";
+      home = dataDir;
+      group = cfg.group;
+      isSystemUser = true;
+    };
     systemd.services.keycloak = {
       # after = databaseServices;
       # bindsTo = databaseServices;
       wantedBy = ["multi-user.target"];
       path = with pkgs; [
         package
+        nodejs_22
       ];
       serviceConfig = {
         User = "web-config";
