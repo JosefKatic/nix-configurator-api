@@ -5,10 +5,9 @@ inputs: {
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
-  inherit (lib) assertStringPath mkOption mkEnableOption types;
+  inherit (lib) assertStringPath mkIf mkOption mkEnableOption types;
   cfg = config.services.web-config.server;
   dataDir = "/var/lib/web-config-api";
-  runDir = "/run/web-config-api";
   package = inputs.self.packages.${system}.web-config-api;
 in {
   options.services.web-config.server = {
@@ -71,7 +70,7 @@ in {
       };
     };
   };
-  config = {
+  config = mkIf cfg.enable {
     users.groups.web-config = {};
     users.users.web-config = {
       description = "web-config-api user";
@@ -79,7 +78,7 @@ in {
       group = cfg.group;
       isSystemUser = true;
     };
-    systemd.services.keycloak = {
+    systemd.services.web-config-api = {
       # after = databaseServices;
       # bindsTo = databaseServices;
       wantedBy = ["multi-user.target"];
@@ -93,22 +92,14 @@ in {
         DynamicUser = true;
         RuntimeDirectory = "web-config-api";
         RuntimeDirectoryMode = "0700";
-        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         Type = "notify";
         NotifyAccess = "all";
-      };
-      script =
-        ''
-          ${optionalString (cfg.settings.db_password_file != null) ''
-            export PORT=${cfg.settings.port}
-          ''}
-          ${optionalString (cfg.settings.redis.host != null) ''
-            export REDIS_URL="${escapeShellArg config.settings.redis.host}"
-          ''}
-          ${optionalString (cfg.settings.db_password_file != null) ''
-            export REDIS_PORT=${escapeShellArg cfg.settings.redis.port}
-          ''}
-          ${optionalString (cfg.settings.db_password_file != null) ''
+        ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
+        ExecStartPre = ''
+          export PORT=${cfg.settings.port}
+          export REDIS_URL="${escapeShellArg config.settings.redis.host}"
+          export REDIS_PORT=${escapeShellArg cfg.settings.redis.port}
+          ${optionalString (cfg.settings.headscale.url != null) ''
             export HEADSCALE_URL="${escapeShellArg cfg.settings.headscale.url}"
           ''}
           ${optionalString (cfg.settings.db_password_file != null) ''
@@ -118,10 +109,8 @@ in {
             export GITHUB_API="$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})"
           ''}
             export NODE_ENV=production
-        ''
-        + ''
-          node dist/main.js
         '';
+      };
     };
   };
 }

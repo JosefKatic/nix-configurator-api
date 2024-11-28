@@ -1,12 +1,8 @@
 {
-  # This example flake.nix is pretty generic and the same for all
-  # examples, except when they define devShells or extra packages.
-  description = "Dream2nix example flake";
+  # This flake is meant to be used solely with nix-config repo.
+  # It could be imported into nix-modules repo, but there is no need for that.
+  description = "API part of the web-config server";
 
-  # We import the latest commit of dream2nix main branch and instruct nix to
-  # re-use the nixpkgs revision referenced by dream2nix.
-  # This is what we test in CI with, but you can generally refer to any
-  # recent nixpkgs commit here.
   inputs = {
     dream2nix.url = "github:nix-community/dream2nix";
     nixpkgs.follows = "dream2nix/nixpkgs";
