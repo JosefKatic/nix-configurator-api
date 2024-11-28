@@ -28,7 +28,7 @@
       });
     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
     nixosModules.default = eachSystem (system:
-      import ./nix/module.nix inputs g{
+      import ./nix/module.nix inputs {
         inherit (nixpkgs) lib;
         pkgs = nixpkgs.legacyPackages.${system};
       });
