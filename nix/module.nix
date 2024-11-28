@@ -5,7 +5,17 @@ inputs: {
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
-  inherit (lib) assertStringPath mkIf mkOption mkEnableOption types escapeShellArg optionalString;
+  inherit (lib) mkIf mkOption mkEnableOption types escapeShellArg optionalString;
+  assertStringPath = optionName: value:
+    if isPath value
+    then
+      throw ''
+        services.web-config.server.settings.${optionName}:
+          ${toString value}
+          is a Nix path, but should be a string, since Nix
+          paths are copied into the world-readable Nix store.
+      ''
+    else value;
   cfg = config.services.web-config.server;
   dataDir = "/var/lib/web-config-api";
   package = inputs.self.packages.${system}.web-config-api;
@@ -27,7 +37,7 @@ in {
         tokenFile = mkOption {
           type = types.path;
           example = "/run/keys/github_token";
-          apply = assertStringPath "tokenFile";
+          apply = assertStringPath "github.tokenFile";
           description = ''
             The path to a file containing the github api key.
           '';
@@ -44,7 +54,7 @@ in {
             tokenFile = mkOption {
               type = types.path;
               example = "/run/keys/headscale_token";
-              apply = assertStringPath "tokenFile";
+              apply = assertStringPath "headscale.tokenFile";
               description = ''
                 The path to a file containing the headscale api key.
               '';
