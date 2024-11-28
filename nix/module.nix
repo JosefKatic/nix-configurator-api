@@ -97,7 +97,7 @@ in {
         ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
         ExecStartPre = ''
           export PORT=${escapeShellArg cfg.settings.port}
-          export REDIS_URL=${escapeShellArg config.settings.redis.host}
+          export REDIS_URL=${escapeShellArg cfg.settings.redis.host}
           export REDIS_PORT=${escapeShellArg cfg.settings.redis.port}
           ${optionalString (cfg.settings.headscale.url != null) ''
             export HEADSCALE_URL="${escapeShellArg cfg.settings.headscale.url}"
