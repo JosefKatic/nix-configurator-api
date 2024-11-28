@@ -100,7 +100,7 @@ in {
           export REDIS_URL=${escapeShellArg cfg.settings.redis.host}
           export REDIS_PORT=${escapeShellArg cfg.settings.redis.port}
           ${optionalString (cfg.settings.headscale.url != null) ''
-            export HEADSCALE_URL="${escapeShellArg cfg.settings.headscale.url}"
+            export HEADSCALE_URL="${escapeShellArg cfg.settings.headscale.host}"
           ''}
           ${optionalString (cfg.settings.db_password_file != null) ''
             export HEADSCALE_API="$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
