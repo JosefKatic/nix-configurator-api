@@ -5,7 +5,7 @@ inputs: {
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
-  inherit (lib) assertStringPath mkIf mkOption mkEnableOption types;
+  inherit (lib) assertStringPath mkIf mkOption mkEnableOption types escapeShellArg optionalString;
   cfg = config.services.web-config.server;
   dataDir = "/var/lib/web-config-api";
   package = inputs.self.packages.${system}.web-config-api;
