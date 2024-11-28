@@ -6,6 +6,7 @@ inputs: {
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
   inherit (lib) mkIf mkOption mkEnableOption types escapeShellArg optionalString;
+  inherit (builtins) isPath;
   assertStringPath = optionName: value:
     if isPath value
     then
