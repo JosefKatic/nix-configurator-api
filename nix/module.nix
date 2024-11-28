@@ -71,11 +71,11 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    users.groups.web-config = {};
-    users.users.web-config = {
-      description = "web-config-api user";
+    users.groups.web-config-api = {};
+    users.users.web-config-api = {
+      description = "web-config user";
       home = dataDir;
-      group = cfg.group;
+      group = "web-config-api";
       isSystemUser = true;
     };
     systemd.services.web-config-api = {
