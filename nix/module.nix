@@ -102,7 +102,7 @@ in {
           ${optionalString (cfg.settings.headscale.host != null) ''
             export HEADSCALE_URL="${escapeShellArg cfg.settings.headscale.host}"
           ''}
-          ${optionalString (cfg.settings.db_password_file != null) ''
+          ${optionalString (cfg.settings.headscale.tokenFile != null) ''
             export HEADSCALE_API="$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
           ''}
           ${optionalString (cfg.settings.github.tokenFile != null) ''
