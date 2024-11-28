@@ -25,7 +25,7 @@ in {
       };
       github = {
         tokenFile = mkOption {
-          type = path;
+          type = types.path;
           example = "/run/keys/github_token";
           apply = assertStringPath "tokenFile";
           description = ''
@@ -42,7 +42,7 @@ in {
               description = "The headscale host";
             };
             tokenFile = mkOption {
-              type = path;
+              type = types.path;
               example = "/run/keys/headscale_token";
               apply = assertStringPath "tokenFile";
               description = ''
