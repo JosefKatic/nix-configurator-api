@@ -124,7 +124,7 @@ in {
           + pkgs.writeShellScript "web-config-api-prep-conf" ''
             touch "${dataDir}"
             chown 'web-config-api' "${dataDir}"
-            chmod 0600 "${dataDir}"
+            chmod 0766 "${dataDir}"
           '';
         ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
       };
