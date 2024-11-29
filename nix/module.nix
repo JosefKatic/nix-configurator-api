@@ -85,7 +85,6 @@ in {
     users.groups.web-config-api = {};
     users.users.web-config-api = {
       description = "web-config user";
-      home = dataDir;
       group = "web-config-api";
       isSystemUser = true;
     };
@@ -96,6 +95,9 @@ in {
       path = with pkgs; [
         package
         nodejs_22
+        coreutils
+        git
+        
       ];
       serviceConfig = {
         User = "web-config-api";
@@ -118,11 +120,13 @@ in {
           "HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
           ++ lib.optional (cfg.settings.github.tokenFile != null)
           "GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})";
-        ExecStartPre = ''
-          touch "${dataDir}"
-          chown 'web-config-api' "${dataDir}"
-          chmod 0600 "${dataDir}"
-        '';
+        ExecStartPre =
+          "+"
+          + pkgs.writeShellScript "${redisName name}-prep-conf" ''
+            touch "${dataDir}"
+            chown 'web-config-api' "${dataDir}"
+            chmod 0600 "${dataDir}"
+          '';
         ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
       };
     };
