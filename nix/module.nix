@@ -105,22 +105,19 @@ in {
         RuntimeDirectoryMode = "0700";
         Type = "notify";
         NotifyAccess = "all";
+        Environment =
+          [
+            "PORT=${escapeShellArg cfg.settings.port}"
+            "REDIS_URL=${escapeShellArg cfg.settings.redis.host}"
+            "REDIS_PORT=${escapeShellArg cfg.settings.redis.port}"
+          ]
+          ++ lib.optional (cfg.settings.headscale.host != null)
+          "HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}"
+          ++ lib.optional (cfg.settings.headscale.tokenFile != null)
+          "HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
+          ++ lib.optional (cfg.settings.github.tokenFile != null)
+          "GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})";
         ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
-        ExecStartPre = ''
-          export PORT=${escapeShellArg cfg.settings.port}
-          export REDIS_URL=${escapeShellArg cfg.settings.redis.host}
-          export REDIS_PORT=${escapeShellArg cfg.settings.redis.port}
-          ${optionalString (cfg.settings.headscale.host != null) ''
-            export HEADSCALE_URL="${escapeShellArg cfg.settings.headscale.host}"
-          ''}
-          ${optionalString (cfg.settings.headscale.tokenFile != null) ''
-            export HEADSCALE_API="$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
-          ''}
-          ${optionalString (cfg.settings.github.tokenFile != null) ''
-            export GITHUB_API="$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})"
-          ''}
-            export NODE_ENV=production
-        '';
       };
     };
   };
