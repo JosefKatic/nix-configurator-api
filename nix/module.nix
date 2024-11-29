@@ -97,7 +97,6 @@ in {
         nodejs_22
         coreutils
         git
-        
       ];
       serviceConfig = {
         User = "web-config-api";
@@ -122,7 +121,7 @@ in {
           "GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})";
         ExecStartPre =
           "+"
-          + pkgs.writeShellScript "${redisName name}-prep-conf" ''
+          + pkgs.writeShellScript "web-config-api-prep-conf" ''
             touch "${dataDir}"
             chown 'web-config-api' "${dataDir}"
             chmod 0600 "${dataDir}"
