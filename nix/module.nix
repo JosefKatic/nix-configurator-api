@@ -118,6 +118,11 @@ in {
           "HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
           ++ lib.optional (cfg.settings.github.tokenFile != null)
           "GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})";
+        ExecStartPre = ''
+          touch "${dataDir}"
+          chown 'web-config-api' "${dataDir}"
+          chmod 0600 "${dataDir}"
+        '';
         ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
       };
     };
