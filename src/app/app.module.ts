@@ -27,7 +27,6 @@ import { BullModule } from '@nestjs/bullmq';
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
       }),
     }),
-    // <ApolloDriverConfig>({}),
     BullModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

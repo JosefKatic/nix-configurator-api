@@ -104,8 +104,6 @@ in {
         DynamicUser = true;
         RuntimeDirectory = "web-config-api";
         RuntimeDirectoryMode = "0700";
-        Type = "notify";
-        NotifyAccess = "all";
         Environment =
           [
             "PORT=${escapeShellArg cfg.settings.port}"
@@ -119,13 +117,6 @@ in {
           "HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
           ++ lib.optional (cfg.settings.github.tokenFile != null)
           "GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})";
-        ExecStartPre =
-          "+"
-          + pkgs.writeShellScript "web-config-api-prep-conf" ''
-            touch "${dataDir}"
-            chown 'web-config-api' "${dataDir}"
-            chmod 0766 "${dataDir}"
-          '';
         ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
       };
     };
