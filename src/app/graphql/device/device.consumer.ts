@@ -71,7 +71,7 @@ export class DeviceConsumer extends WorkerHost {
     type: 'HOME' | 'SYSTEM',
     updatedConfig,
   ) {
-    const baseDir = `/srv/git/nix-config-push`;
+    const baseDir = `${this.configService.get('DATA_DIR')}/nix-config-push`;
     const systemPath = `${hostname}`;
     const homePath = `${hostname}/${username}`;
     if (!(await fs.existsSync(`${baseDir}/flake.nix`))) {
@@ -135,10 +135,7 @@ export class DeviceConsumer extends WorkerHost {
     }
     outputFile += '}';
 
-    await writeFile(
-      `${baseDir}/${editFile}`,
-      outputFile,
-    );
+    await writeFile(`${baseDir}/${editFile}`, outputFile);
     await add({
       fs,
       dir: `${baseDir}`,

@@ -110,6 +110,7 @@ in {
             "PORT=${escapeShellArg cfg.settings.port}"
             "REDIS_URL=${escapeShellArg cfg.settings.redis.host}"
             "REDIS_PORT=${escapeShellArg cfg.settings.redis.port}"
+            "DATA_DIR=${dataDir}"
           ]
           ++ lib.optional (cfg.settings.headscale.host != null)
           "HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}"
