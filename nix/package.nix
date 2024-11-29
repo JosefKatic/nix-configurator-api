@@ -19,6 +19,7 @@
       cp -r dist/ $out/
       cp package*.json $out/
       cp -r node_modules $out/
+      touch $out/schema.gql
     '';
   };
   deps = {nixpkgs, ...}: {
@@ -39,5 +40,5 @@
   };
 
   name = "web-config-api";
-  version = "0.0.0";
+  version = "0.0.1";
 }
