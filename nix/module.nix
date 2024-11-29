@@ -98,8 +98,8 @@ in {
         nodejs_22
       ];
       serviceConfig = {
-        User = "web-config";
-        Group = "web-config";
+        User = "web-config-api";
+        Group = "web-config-api";
         DynamicUser = true;
         RuntimeDirectory = "web-config-api";
         RuntimeDirectoryMode = "0700";

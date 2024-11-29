@@ -21,7 +21,7 @@ import { BullModule } from '@nestjs/bullmq';
       inject: [ConfigService],
       driver: ApolloDriver,
       useFactory: (configService: ConfigService) => ({
-        autoSchemaFile: join(configService.get('DATA_DIR'), 'schema.gql'),
+        autoSchemaFile: join(process.cwd(), 'schema.gql'),
         playground: false,
         introspection: true,
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
