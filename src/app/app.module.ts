@@ -16,11 +16,11 @@ import { BullModule } from '@nestjs/bullmq';
   imports: [
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    GraphQLModule.forRootAsync({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       imports: [ConfigModule],
       inject: [ConfigService],
+      driver: ApolloDriver,
       useFactory: (configService: ConfigService) => ({
-        driver: ApolloDriver,
         autoSchemaFile: join(configService.get('DATA_DIR'), 'schema.gql'),
         playground: false,
         introspection: true,
