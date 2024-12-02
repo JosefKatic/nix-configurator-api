@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Postgresql } from '../databases/postgresql';
-import { Mysql } from '../databases/mysql';
+import { Postgresql } from './postgresql';
+import { Mysql } from './mysql';
 
 @ObjectType()
 export class Databases {

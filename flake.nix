@@ -26,11 +26,11 @@
         system,
         ...
       }: let
-        web-config-api = dream2nix.lib.evalModules {
+        nix-configurator-api = dream2nix.lib.evalModules {
           packageSets.nixpkgs = pkgs;
           modules = [
             # Import our actual package definiton as a dream2nix module from ./default.nix
-            ./nix/package.nix
+            ./nix/default.nix
             {
               # Aid dream2nix to find the project root. This setup should also works for mono
               # repos. If you only have a single project, the defaults should be good enough.
@@ -47,8 +47,8 @@
         };
 
         packages = {
-          inherit web-config-api;
-          default = web-config-api;
+          inherit nix-configurator-api;
+          default = nix-configurator-api;
         };
       };
       flake.nixosModules = {

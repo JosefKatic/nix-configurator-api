@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { DeviceService } from './device.service';
 import { Device, DeviceConfig } from './entities/device.entity';
-import { GqlAuthGuard } from '../../auth/gql.guard';
+import { GqlAuthGuard } from '../auth/gql.guard';
 import { Logger, UseGuards } from '@nestjs/common';
-import { CurrentUser } from '../../auth/user.decorator';
+import { CurrentUser } from '../auth/user.decorator';
 import {
   UpdateHomeConfigInput,
   UpdateSystemConfigInput,

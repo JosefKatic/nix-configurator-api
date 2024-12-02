@@ -39,6 +39,6 @@
     buildScript = "npm run build";
   };
 
-  name = "web-config-api";
+  name = "nix-configurator-api";
   version = "0.0.1";
 }

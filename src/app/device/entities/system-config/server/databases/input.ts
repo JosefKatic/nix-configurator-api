@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { PostgresqlInput } from '../databases/postgresql';
-import { MysqlInput } from '../databases/mysql';
+import { PostgresqlInput } from './postgresql';
+import { MysqlInput } from './mysql';
 
 @InputType()
 export class DatabasesInput {

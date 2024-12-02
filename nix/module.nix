@@ -18,8 +18,8 @@ inputs: {
       ''
     else value;
   cfg = config.services.web-config.server;
-  dataDir = "/var/lib/web-config-api";
-  package = inputs.self.packages.${system}.web-config-api;
+  dataDir = "/var/lib/nix-configurator-api";
+  package = inputs.self.packages.${system}.nix-configurator-api;
 in {
   options.services.web-config.server = {
     enable = mkEnableOption "Enable the web-config server";
@@ -82,13 +82,13 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    users.groups.web-config-api = {};
-    users.users.web-config-api = {
+    users.groups.nix-configurator-api = {};
+    users.users.nix-configurator-api = {
       description = "web-config user";
-      group = "web-config-api";
+      group = "nix-configurator-api";
       isSystemUser = true;
     };
-    systemd.services.web-config-api = {
+    systemd.services.nix-configurator-api = {
       # after = databaseServices;
       # bindsTo = databaseServices;
       wantedBy = ["multi-user.target"];
@@ -99,10 +99,10 @@ in {
         git
       ];
       serviceConfig = {
-        User = "web-config-api";
-        Group = "web-config-api";
+        User = "nix-configurator-api";
+        Group = "nix-configurator-api";
         DynamicUser = true;
-        RuntimeDirectory = "web-config-api";
+        RuntimeDirectory = "nix-configurator-api";
         RuntimeDirectoryMode = "0700";
         Environment =
           [
