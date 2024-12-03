@@ -1,7 +1,7 @@
 {
   # This flake is meant to be used solely with nix-config repo.
   # It could be imported into nix-modules repo, but there is no need for that.
-  description = "API part of the web-config api";
+  description = "API part of the nix-configurator api";
 
   inputs = {
     dream2nix.url = "github:nix-community/dream2nix";

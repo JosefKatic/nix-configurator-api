@@ -17,16 +17,16 @@ inputs: {
           paths are copied into the world-readable Nix store.
       ''
     else value;
-  cfg = config.services.web-config.api;
+  cfg = config.services.nix-configurator.api;
   dataDir = "/var/lib/nix-configurator-api";
   package = inputs.self.packages.${system}.nix-configurator-api;
 in {
   options.services.nix-configurator.api = {
-    enable = mkEnableOption "Enable the web-config server";
+    enable = mkEnableOption "Enable the nix-configurator api";
     package = mkOption {
       type = types.package;
       default = package;
-      description = "The package to use for the web-config server";
+      description = "The package to use for the nix-configurator api";
     };
     settings = {
       port = mkOption {
@@ -84,7 +84,7 @@ in {
   config = mkIf cfg.enable {
     users.groups.nix-configurator-api = {};
     users.users.nix-configurator-api = {
-      description = "web-config user";
+      description = "nix-configurator user";
       group = "nix-configurator-api";
       isSystemUser = true;
     };
