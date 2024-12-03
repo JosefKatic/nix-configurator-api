@@ -11,7 +11,7 @@ inputs: {
     if isPath value
     then
       throw ''
-        services.web-config.server.settings.${optionName}:
+        services.nix-configurator.api.settings.${optionName}:
           ${toString value}
           is a Nix path, but should be a string, since Nix
           paths are copied into the world-readable Nix store.
@@ -21,7 +21,7 @@ inputs: {
   dataDir = "/var/lib/nix-configurator-api";
   package = inputs.self.packages.${system}.nix-configurator-api;
 in {
-  options.services.web-config.api = {
+  options.services.nix-configurator.api = {
     enable = mkEnableOption "Enable the web-config server";
     package = mkOption {
       type = types.package;
