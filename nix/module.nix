@@ -17,11 +17,11 @@ inputs: {
           paths are copied into the world-readable Nix store.
       ''
     else value;
-  cfg = config.services.web-config.server;
+  cfg = config.services.web-config.api;
   dataDir = "/var/lib/nix-configurator-api";
   package = inputs.self.packages.${system}.nix-configurator-api;
 in {
-  options.services.web-config.server = {
+  options.services.web-config.api = {
     enable = mkEnableOption "Enable the web-config server";
     package = mkOption {
       type = types.package;
