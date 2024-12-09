@@ -104,19 +104,17 @@ in {
         DynamicUser = true;
         RuntimeDirectory = "nix-configurator-api";
         RuntimeDirectoryMode = "0700";
-        Environment =
-          [
-            "PORT=${escapeShellArg cfg.settings.port}"
-            "REDIS_URL=${escapeShellArg cfg.settings.redis.host}"
-            "REDIS_PORT=${escapeShellArg cfg.settings.redis.port}"
-            "DATA_DIR=${dataDir}"
-          ]
-          ++ lib.optional (cfg.settings.headscale.host != null)
+        Environment = [
+          "PORT=${escapeShellArg cfg.settings.port}"
+          "REDIS_URL=${escapeShellArg cfg.settings.redis.host}"
+          "REDIS_PORT=${escapeShellArg cfg.settings.redis.port}"
+          "DATA_DIR=${dataDir}"
           "HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}"
-          ++ lib.optional (cfg.settings.headscale.tokenFile != null)
-          "HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
-          ++ lib.optional (cfg.settings.github.tokenFile != null)
-          "GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})";
+        ];
+        ExecPreStart = ''
+          export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
+          export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile});
+        '';
         ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
       };
     };
