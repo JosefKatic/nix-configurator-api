@@ -10,7 +10,6 @@
       && notBroken pkg
       && isDistributable pkg)
     pkgs;
-  getConfigTopLevel = _: cfg: cfg.config.system.build.toplevel;
 in {
   flake = {
     hydraJobs = {
