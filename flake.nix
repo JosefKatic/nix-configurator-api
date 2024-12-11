@@ -58,7 +58,7 @@
       imports = [
         ./pre-commit-hooks.nix
         ./shell.nix
-        ./hydra
+        ./.hydra
       ];
       flake.nixosModules = {
         default = import ./nix/module.nix inputs;
