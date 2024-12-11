@@ -58,27 +58,10 @@
       imports = [
         ./pre-commit-hooks.nix
         ./shell.nix
+        ./hydra
       ];
       flake.nixosModules = {
         default = import ./nix/module.nix inputs;
       };
     };
 }
-#   let
-#     # A helper that helps us define the attributes below for
-#     # all systems we care about.
-#     eachSystem = nixpkgs.lib.genAttrs [
-#       "x86_64-linux"
-#       "aarch64-linux"
-#     ];
-#   in {
-#     devShells = eachSystem (system:
-#       import ./shell.nix {
-#         pkgs = nixpkgs.legacyPackages.${system};
-#         lib = nixpkgs.lib;
-#       });
-#     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
-#     });
-#   };
-# }
-
