@@ -21,6 +21,12 @@
       cp -r node_modules $out/
       touch $out/schema.gql
     '';
+
+    meta = {
+      homepage = "https://github.com/JosefKatic/nix-configurator-api";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.linux;
+    };
   };
   deps = {nixpkgs, ...}: {
     inherit
@@ -41,10 +47,4 @@
 
   name = "nix-configurator-api";
   version = "0.0.1";
-
-  meta = {
-    homepage = "https://github.com/JosefKatic/nix-configurator-api";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
-  };
 }
