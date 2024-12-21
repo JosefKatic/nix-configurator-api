@@ -110,7 +110,7 @@ in {
           "HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}"
           "NODE_ENV=production"
         ];
-        ExecPreStart = ''
+        ExecStartPre = ''
           export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
           export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile});
         '';
