@@ -89,8 +89,6 @@ in {
       isSystemUser = true;
     };
     systemd.services.nix-configurator-api = {
-      # after = databaseServices;
-      # bindsTo = databaseServices;
       wantedBy = ["multi-user.target"];
       path = with pkgs; [
         package
@@ -110,6 +108,7 @@ in {
           "REDIS_PORT=${escapeShellArg cfg.settings.redis.port}"
           "DATA_DIR=${dataDir}"
           "HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}"
+          "NODE_ENV=production"
         ];
         ExecPreStart = ''
           export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
