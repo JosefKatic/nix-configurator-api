@@ -111,10 +111,12 @@ in {
           "NODE_ENV=production"
         ];
         ExecStartPre = ''
-          export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
-          export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile});
         '';
-        ExecStart = "${pkgs.nodejs_22}/bin/node ${package}/dist/main.js";
+        ExecStart = ''
+          /bin/sh -c "export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})"
+          /bin/sh -c "export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})"
+          ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js
+        '';
       };
     };
   };
