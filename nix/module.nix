@@ -88,7 +88,18 @@ in {
       group = "nix-configurator-api";
       isSystemUser = true;
     };
-    systemd.services.nix-configurator-api = {
+    systemd.services.nix-configurator-api = let
+      environmentFile = pkgs.writeText "api.env" ''
+        PORT=${escapeShellArg cfg.settings.port}
+        REDIS_URL=${escapeShellArg cfg.settings.redis.host}
+        REDIS_PORT=${escapeShellArg cfg.settings.redis.port}
+        DATA_DIR=${dataDir}
+        HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}
+        HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
+        GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})
+        NODE_ENV=production
+      '';
+    in {
       wantedBy = ["multi-user.target"];
       path = with pkgs; [
         package
@@ -102,15 +113,8 @@ in {
         DynamicUser = true;
         RuntimeDirectory = "nix-configurator-api";
         RuntimeDirectoryMode = "0700";
-        Environment = [
-          "PORT=${escapeShellArg cfg.settings.port}"
-          "REDIS_URL=${escapeShellArg cfg.settings.redis.host}"
-          "REDIS_PORT=${escapeShellArg cfg.settings.redis.port}"
-          "DATA_DIR=${dataDir}"
-          "HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}"
-          "NODE_ENV=production"
-        ];
-        ExecStart = ''/bin/sh -c "export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile}) && export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})" && ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js'';
+        EnvironmentFile = environmentFile;
+        ExecStart = ''${pkgs.nodejs_22}/bin/node ${package}/dist/main.js'';
       };
     };
   };
