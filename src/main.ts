@@ -10,11 +10,13 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
+  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'production') {
     app.enableCors({
-      origin: true,
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      origin: ['https://config.joka00.dev'],
+      methods: 'GET,POST,OPTIONS',
       credentials: true,
+      allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     });
   }
   Logger.log(process.cwd());
