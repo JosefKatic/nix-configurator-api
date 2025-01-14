@@ -26,6 +26,10 @@ import { BullModule } from '@nestjs/bullmq';
         plugins: configService.get<boolean>('GQL_PLUGINS')
           ? [ApolloServerPluginLandingPageLocalDefault()]
           : [],
+        cors: {
+          credentials: true,
+          origin: true,
+        },
       }),
     }),
     BullModule.forRootAsync({
