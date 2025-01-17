@@ -95,9 +95,13 @@ in {
         REDIS_PORT=${escapeShellArg cfg.settings.redis.port}
         DATA_DIR=${dataDir}
         HEADSCALE_URL=${escapeShellArg cfg.settings.headscale.host}
-        HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
-        GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})
         NODE_ENV=production
+      '';
+      startScript = pkgs.writeShellScriptBin "nix-configurator-api-start.sh" ''
+        #!/bin/sh
+        export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
+        export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})
+        exec ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js
       '';
     in {
       wantedBy = ["multi-user.target"];
@@ -114,7 +118,7 @@ in {
         RuntimeDirectory = "nix-configurator-api";
         RuntimeDirectoryMode = "0700";
         EnvironmentFile = environmentFile;
-        ExecStart = ''${pkgs.nodejs_22}/bin/node ${package}/dist/main.js'';
+        ExecStart = "${startScript}";
       };
     };
   };
