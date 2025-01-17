@@ -101,7 +101,7 @@ in {
         #!/bin/sh
         export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
         export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})
-        exec ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js
+        ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js
       '';
     in {
       wantedBy = ["multi-user.target"];
