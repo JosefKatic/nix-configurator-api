@@ -101,7 +101,7 @@ in {
         #!/bin/sh
         export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
         export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})
-        ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js
+        exec ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js
       '';
     in {
       wantedBy = ["multi-user.target"];
@@ -118,7 +118,7 @@ in {
         RuntimeDirectory = "nix-configurator-api";
         RuntimeDirectoryMode = "0700";
         EnvironmentFile = environmentFile;
-        ExecStart = "${startScript}";
+        ExecStart = "${startScript}/bin/nix-configurator-api-start.sh";
       };
     };
   };
