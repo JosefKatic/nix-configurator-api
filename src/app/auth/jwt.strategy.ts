@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         rateLimit: true,
         jwksRequestsPerMinute: 100,
         jwksUri:
-          'https://auth.joka00.dev/realms/21bb13ca-8130-423c-ac0f-85de48db99bb/protocol/openid-connect/certs',
+          'https://sso.joka00.dev/realms/21bb13ca-8130-423c-ac0f-85de48db99bb/protocol/openid-connect/certs',
       }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
       algorithms: ['ES256'],
