@@ -13,7 +13,7 @@ async function bootstrap() {
   console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'production') {
     app.enableCors({
-      origin: ['https://config.joka00.dev'],
+      origin: ['https://config.internal.joka00.dev'],
       methods: 'GET,POST,OPTIONS',
       credentials: true,
       allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
