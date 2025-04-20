@@ -1,8 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Boot } from './boot';
 import { Core } from './core';
 import { Desktop } from './desktop';
-import { Hardware } from './hardware';
 import { Server } from './server';
 import { Utils } from './utils';
 import { TypeEnum } from './typeEnum';
@@ -10,16 +8,16 @@ import { TypeEnum } from './typeEnum';
 @ObjectType()
 export class SystemConfig {
   @Field(() => Core, { nullable: false })
-    core: Core;
+  core: Core;
 
   @Field(() => Desktop, { nullable: false })
-    desktop: Desktop;
+  desktop: Desktop;
 
   @Field(() => Server, { nullable: false })
-    server: Server;
+  server: Server;
 
   @Field(() => Utils, { nullable: false })
-    utils: Utils;
+  utils: Utils;
 
   @Field(() => String, { nullable: false })
   build: string;

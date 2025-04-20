@@ -4,28 +4,24 @@ import { Locale } from './locale';
 import { Network } from './network';
 import { SecurityRules } from './securityRules';
 import { Shells } from './shells';
-import { Storage } from './storage';
 
 @ObjectType()
 export class Core {
   @Field(() => String, { nullable: false })
-    kernel: string;
+  kernel: string;
 
   @Field(() => Boolean, { nullable: false })
-    disableDefaults: boolean;
+  disableDefaults: boolean;
 
   @Field(() => Locale, { nullable: false })
-    locale: Locale;
+  locale: Locale;
 
   @Field(() => Network, { nullable: false })
-    network: Network;
+  network: Network;
 
   @Field(() => SecurityRules, { nullable: false })
-    securityRules: SecurityRules;
+  securityRules: SecurityRules;
 
   @Field(() => Shells, { nullable: false })
-    shells: Shells;
-
-  @Field(() => Storage, { nullable: false })
-    storage: Storage;
+  shells: Shells;
 }

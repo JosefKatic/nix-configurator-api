@@ -6,9 +6,9 @@ import { TeamspeakInput } from './teamspeak';
 import { MinecraftInput } from './minecraft';
 import { HydraInput } from './hydra';
 import { HostingInput } from './hosting';
-import { HomelabInput } from './homelab';
 import { GitServerInput } from './git';
 import { DatabasesInput } from './databases';
+import { NixConfiguratorInput } from './nixConfigurator';
 
 @InputType()
 export class ServerInput {
@@ -24,9 +24,6 @@ export class ServerInput {
   @Field(() => GitServerInput, { nullable: true })
   git: GitServerInput;
 
-  @Field(() => HomelabInput, { nullable: true })
-  homelab: HomelabInput;
-
   @Field(() => HostingInput, { nullable: true })
   hosting: HostingInput;
 
@@ -35,6 +32,9 @@ export class ServerInput {
 
   @Field(() => MinecraftInput, { nullable: true })
   minecraft: MinecraftInput;
+
+  @Field(() => NixConfiguratorInput, { nullable: true })
+  nixConfigurator: NixConfiguratorInput;
 
   @Field(() => ServicesInput, { nullable: true })
   services: ServicesInput;
