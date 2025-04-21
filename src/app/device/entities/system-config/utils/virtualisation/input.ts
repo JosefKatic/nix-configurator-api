@@ -5,12 +5,12 @@ import { DockerInput } from './docker';
 
 @InputType()
 export class VirtualisationInput {
-  @Field(() => DockerInput)
+  @Field(() => DockerInput, { nullable: true })
   docker: DockerInput;
 
-  @Field(() => PodmanInput)
+  @Field(() => PodmanInput, { nullable: true })
   podman: PodmanInput;
 
-  @Field(() => LibvirtdInput)
+  @Field(() => LibvirtdInput, { nullable: true })
   libvirtd: LibvirtdInput;
 }

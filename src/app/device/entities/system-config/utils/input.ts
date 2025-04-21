@@ -1,12 +1,12 @@
-import { Field, InputType } from "@nestjs/graphql";
-import { VirtualisationInput } from "./virtualisation";
-import { KdeConnectInput } from "./kdeconnect";
+import { Field, InputType } from '@nestjs/graphql';
+import { VirtualisationInput } from './virtualisation';
+import { KdeConnectInput } from './kdeconnect';
 
 @InputType()
 export class UtilsInput {
-  @Field(() => KdeConnectInput)
+  @Field(() => KdeConnectInput, { nullable: true })
   kdeconnect: KdeConnectInput;
-  
-  @Field(() => VirtualisationInput)
+
+  @Field(() => VirtualisationInput, { nullable: true })
   virtualisation: VirtualisationInput;
 }
