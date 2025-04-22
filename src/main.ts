@@ -10,7 +10,6 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'production') {
     app.enableCors({
       origin: ['https://config.internal.joka00.dev'],

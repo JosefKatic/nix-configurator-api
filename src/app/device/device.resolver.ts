@@ -40,12 +40,12 @@ export class DeviceResolver {
   ) {
     const systemConfig = await this.deviceService.findConfig(
       hostname,
-      user.preferred_username,
+      user.username,
       'SYSTEM',
     );
     const homeConfig = await this.deviceService.findConfig(
       hostname,
-      user.preferred_username,
+      user.username,
       'HOME',
     );
     return {
@@ -83,7 +83,7 @@ export class DeviceResolver {
       updateDeviceInput.hostname,
       'HOME',
       updateDeviceInput.updatedConfig,
-      user.preferred_username,
+      user.username,
     );
   }
 }

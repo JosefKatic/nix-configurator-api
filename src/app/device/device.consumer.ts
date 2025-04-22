@@ -4,7 +4,8 @@ import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { readFile, writeFile } from 'fs/promises';
-import fs from 'fs';
+import * as fs from 'fs';
+import path from 'path';
 import { ConfigService } from '@nestjs/config';
 @Processor('device')
 export class DeviceConsumer extends WorkerHost {
@@ -21,7 +22,7 @@ export class DeviceConsumer extends WorkerHost {
         type: 'SYSTEM' | 'HOME';
         updatedConfig: any[];
       },
-      boolean,
+      any,
       string
     >,
   ): Promise<any> {
@@ -50,7 +51,7 @@ export class DeviceConsumer extends WorkerHost {
         type: 'SYSTEM' | 'HOME';
         updatedConfig: any;
       },
-      boolean,
+      any,
       string
     >,
   ) {
@@ -161,46 +162,4 @@ export class DeviceConsumer extends WorkerHost {
     });
     return commitHash;
   }
-
-  // convertObjectToArray(obj: any, prefix: string = ''): [string, any][] {
-  //   const result: [string, any][] = [];
-
-  //   for (const key in obj) {
-  //     if (obj.hasOwnProperty(key)) {
-  //       const value = obj[key];
-  //       const dotNotatedKey = prefix ? `${prefix}.${key}` : key;
-  //       if (
-  //         typeof value === 'object' &&
-  //         value !== null &&
-  //         !Array.isArray(value)
-  //       ) {
-  //         result.push(...this.convertObjectToArray(value, dotNotatedKey));
-  //       } else {
-  //         if (Array.isArray(value)) {
-  //           if (value.length < 1) {
-  //             continue;
-  //           }
-  //           result.push([
-  //             dotNotatedKey,
-  //             `${JSON.stringify(value).replace(',', ' ')}`,
-  //           ]);
-  //         } else if (
-  //           typeof value == 'boolean' ||
-  //           typeof value == 'number' ||
-  //           ['inputs.', 'config.', 'pkgs.', 'self.'].some((v) =>
-  //             value.includes(v),
-  //           )
-  //         ) {
-  //           result.push([dotNotatedKey, value]);
-  //         } else {
-  //           if (value === '') {
-  //             continue;
-  //           }
-  //           result.push([dotNotatedKey, `"${value}"`]);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return result;
-  // }
 }
