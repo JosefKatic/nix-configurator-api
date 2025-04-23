@@ -95,7 +95,7 @@ export class DeviceConsumer extends WorkerHost {
         email: 'nix-configurator@joka00.dev',
       },
       singleBranch: true,
-      onAuth: () => ({ username: this.configService.get('GITHUB_API_TOKEN') }),
+      onAuth: () => ({ username: this.configService.get('GITHUB_API') }),
     });
     const editFile = `config/${type == 'SYSTEM' ? 'nixos/' + systemPath : 'home/' + homePath}/generated.nix`;
 
@@ -158,7 +158,7 @@ export class DeviceConsumer extends WorkerHost {
       corsProxy: 'https://cors.isomorphic-git.org',
       remote: 'origin',
       ref: 'main',
-      onAuth: () => ({ username: this.configService.get('GITHUB_API_TOKEN') }),
+      onAuth: () => ({ username: this.configService.get('GITHUB_API') }),
     });
     return commitHash;
   }
