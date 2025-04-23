@@ -5,7 +5,7 @@ import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { readFile, writeFile } from 'fs/promises';
 import * as fs from 'fs';
-import path from 'path';
+import { dirname, join } from 'path';
 import { ConfigService } from '@nestjs/config';
 @Processor('device')
 export class DeviceConsumer extends WorkerHost {
@@ -72,7 +72,7 @@ export class DeviceConsumer extends WorkerHost {
     type: 'HOME' | 'SYSTEM',
     updatedConfig,
   ) {
-    const baseDir = `${this.configService.get('DATA_DIR')}/nix-config-push`;
+    const baseDir = join(dirname(process.argv[1]), 'data');
     const systemPath = `${hostname}`;
     const homePath = `${hostname}/${username}`;
     if (!(await fs.existsSync(`${baseDir}/flake.nix`))) {

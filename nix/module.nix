@@ -99,7 +99,6 @@ in {
       '';
       startScript = pkgs.writeShellScriptBin "nix-configurator-api-start.sh" ''
         #!/bin/sh
-        mkdir -p ${dataDir}/nix-config-push
         export HEADSCALE_API=$(head -n1 ${escapeShellArg cfg.settings.headscale.tokenFile})
         export GITHUB_API=$(head -n1 ${escapeShellArg cfg.settings.github.tokenFile})
         exec ${pkgs.nodejs_22}/bin/node ${package}/dist/main.js
