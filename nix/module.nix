@@ -118,7 +118,7 @@ in {
         RuntimeDirectoryMode = "0750";
         StateDirectory = "nix-configurator-api";
         StateDirectoryMode = "0700";
-        Type = "notify";
+        Type = "simple";
         UMask = "0077";
         EnvironmentFile = environmentFile;
         ExecStart = "${startScript}/bin/nix-configurator-api-start.sh";
