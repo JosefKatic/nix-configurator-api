@@ -114,9 +114,12 @@ in {
       serviceConfig = {
         User = "nix-configurator-api";
         Group = "nix-configurator-api";
-        DynamicUser = true;
         RuntimeDirectory = "nix-configurator-api";
-        RuntimeDirectoryMode = "0700";
+        RuntimeDirectoryMode = "0750";
+        StateDirectory = "nix-configurator-api";
+        StateDirectoryMode = "0700";
+        Type = "notify";
+        UMask = "0077";
         EnvironmentFile = environmentFile;
         ExecStart = "${startScript}/bin/nix-configurator-api-start.sh";
       };

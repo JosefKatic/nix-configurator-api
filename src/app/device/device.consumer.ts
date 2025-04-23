@@ -72,7 +72,7 @@ export class DeviceConsumer extends WorkerHost {
     type: 'HOME' | 'SYSTEM',
     updatedConfig,
   ) {
-    const baseDir = join(dirname(process.argv[1]), 'data');
+    const baseDir = this.configService.get('DATA_DIR');
     const systemPath = `${hostname}`;
     const homePath = `${hostname}/${username}`;
     if (!(await fs.existsSync(`${baseDir}/flake.nix`))) {
